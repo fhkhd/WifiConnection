@@ -238,5 +238,23 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    WifiP2pManager.ConnectionInfoListener connectionInfoListener = new WifiP2pManager.ConnectionInfoListener() {
+        @Override
+        public void onConnectionInfoAvailable(WifiP2pInfo wifiP2pInfo) {
+            final InetAddress groupOwnerAddress = wifiP2pInfo.groupOwnerAddress;
+            if (wifiP2pInfo.groupFormed && wifiP2pInfo.isGroupOwner)
+            {
+                connection_mode_tv.setText("host");
+                ishost = true;
+                serverclas = new Serverclas();
+                serverclas.start();
+            }else if (wifiP2pInfo.groupFormed){
 
+                connection_mode_tv.setText("client");
+                ishost = false;
+                clientClass = new ClientClass(groupOwnerAddress);
+                clientClass.start();
+            }
+        }
+    };
 }
