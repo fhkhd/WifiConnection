@@ -6,10 +6,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pDeviceList;
+import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -49,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
     private Socket socket;
 
+    Serverclas serverclas;
+    ClientClass clientClass;
 
+    boolean ishost;
+    int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 100;
 
 
     @Override
@@ -203,6 +210,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    WifiP2pManager.PeerListListener peerListListener = new WifiP2pManager.PeerListListener() {
+        @Override
+        public void onPeersAvailable(WifiP2pDeviceList wifiP2pDeviceList) {
+            if (!wifiP2pDeviceList.equals(peers)){
+
+                peers.clear();
+                peers.addAll(wifiP2pDeviceList.getDeviceList());
+
+                deviceNameArray = new String[wifiP2pDeviceList.getDeviceList().size()];
+                deviceArrey = new WifiP2pDevice[wifiP2pDeviceList.getDeviceList().size()];
+
+                int index = 0 ;
+                for (WifiP2pDevice device : wifiP2pDeviceList.getDeviceList()){
+                    deviceNameArray[index] = device.deviceName;
+                    deviceArrey[index] = device;
+                }
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1 , deviceNameArray);
+            listView_devices.setAdapter(adapter);
+
+            if (peers.size() == 0){
+                connection_mode_tv.setText("no Device found");
+                return;
+            }
+        }
+    };
 
 
 }
