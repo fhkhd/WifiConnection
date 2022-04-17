@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button listen_btn , send_btn , deviseslist_btn ;
     private EditText mssg_ed;
-    private TextView connection_mode_tv , txt_message , nofind_tv;
+    TextView connection_mode_tv , txt_message , nofind_tv;
     private ListView listView_devices;
     private String string ,st_message;
 
