@@ -128,7 +128,66 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public class ClientClass extends Thread{
+        String hostAdd;
+        private InputStream inputStream;
+        private OutputStream outputStream;
 
+        public ClientClass(InetAddress hostAddress){
+            hostAdd = hostAddress.getHostAddress();
+            socket = new Socket();
+        }
+
+        public void write(byte[] bytes)
+        {
+            try {
+                outputStream.write(bytes);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void run(){
+            try {
+                socket.connect(new InetSocketAddress(hostAdd , 8888) , 500);
+                inputStream = socket.getInputStream();
+                outputStream = socket.getOutputStream();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Handler handler = new Handler(Looper.getMainLooper());
+
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    byte[] buffer = new byte[1024];
+                    int bytes;
+
+                    while (socket != null){
+                        try {
+                            bytes = inputStream.read(buffer);
+                            if (bytes >0){
+                                int finalbytes = bytes;
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String tempMSG = new String(buffer, 0 ,finalbytes);
+                                        txt_message.setText(tempMSG);
+                                        mssg_ed.setText("");
+                                    }
+                                });
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }
+    }
 
 
 
