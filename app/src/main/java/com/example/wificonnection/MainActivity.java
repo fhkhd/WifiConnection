@@ -3,6 +3,7 @@ package com.example.wificonnection;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initID();
+        initWifiP2p();
     }
 
 
@@ -69,6 +71,18 @@ public class MainActivity extends AppCompatActivity {
         txt_message = findViewById(R.id.txt_message);
         listView_devices = findViewById(R.id.listView_devices);
         nofind_tv = findViewById(R.id.nofind_tv);
+    }
+
+    private void initWifiP2p(){
+        wifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+        channel = wifiP2pManager.initialize(this, getMainLooper(), null);
+//        broadcastReceiver = new WiFiDirectBroadcastReceiver(wifiP2pManager ,channel , this);
+
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
     }
 
     public  class Serverclas extends Thread{
