@@ -1,63 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
     tools:context=".MainActivity">
 
 
 
-    <LinearLayout
+
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="10dp"-->
+<!--            android:text="لیست دستگاه ها"-->
+<!--            android:fontFamily="@font/iran_sans"-->
+<!--            android:layout_weight="1"/>-->
+
+
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="10dp"-->
+<!--            android:text="اتصال"-->
+<!--            android:fontFamily="@font/iran_sans"-->
+<!--            android:layout_weight="1"/>-->
+
+
+
+    <TextView
+        android:id="@+id/connection_mode_tv"
         android:layout_width="match_parent"
+        android:background="@color/backLite"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:text="قطعی ارتباط"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:fontFamily="@font/iran_sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_weight="1"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/listen_btn"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        app:lottie_loop="false"
+        android:tooltipText="اتصال"
+        android:visibility="visible"
+        app:lottie_autoPlay="true"
+        android:layout_below="@+id/connection_mode_tv"
+        app:lottie_rawRes="@raw/wificlick"/>
 
-        <Button
-            android:id="@+id/deviseslist_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:text="لیست دستگاه ها"
-            android:fontFamily="@font/iran_sans"
-            android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/deviseslist_btn"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/drop_down"
+        android:layout_below="@+id/listen_btn"/>
 
-        <TextView
-            android:id="@+id/connection_mode_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="قطعی ارتباط"
-            android:textAlignment="center"
-            android:fontFamily="@font/iran_sans"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_weight="1"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/listen_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:text="اتصال"
-            android:fontFamily="@font/iran_sans"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_below="@id/deviseslist_btn"
+        android:id="@+id/listre"
         android:layout_height="200dp">
 
         <ListView
             android:id="@+id/listView_devices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:background="@color/purple_500" />
+            android:layout_marginHorizontal="10dp" />
 
 
         <TextView
@@ -70,23 +87,37 @@
             android:gravity="center"
             android:outlineSpotShadowColor="@color/purple_500"
             android:text="دستگاهی یافت نشد!"
-            android:textColor="@color/white" />
+            android:textColor="@color/teal_200" />
+
+
+
     </RelativeLayout>
 
     <TextView
         android:id="@+id/txt_message"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="پیام"
-        android:textSize="25dp"
-        android:textIsSelectable="true"
+        android:layout_below="@+id/listre"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/bottmed"
+        android:background="@drawable/pm_box"
         android:fontFamily="@font/iran_sans"
-        android:layout_gravity="center_horizontal"/>
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="پیام"
+        android:textIsSelectable="true"
+        android:textSize="25dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
+        android:id="@+id/bottmed"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <EditText
@@ -94,19 +125,22 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="3"
+            android:background="@color/backLite"
             android:fontFamily="@font/iran_sans"
-            android:layout_marginHorizontal="10dp"
-            android:background="#E0E0E0"/>
+            />
 
         <Button
             android:id="@+id/send_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="10dp"
+            android:background="@color/backLite"
             android:text="ارسال"
+            android:backgroundTint="@color/backLite"
             android:fontFamily="@font/iran_sans"
             android:layout_weight="1"/>
     </LinearLayout>
 
 
-</LinearLayout>
+
+
+</RelativeLayout>

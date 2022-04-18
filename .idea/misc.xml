@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/fhkhd/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.24739583333333334" />
+        <entry key="..\:/git/WifiConnection/WifiConnection.git/app/src/main/res/drawable/drop_down.xml" value="0.2635416666666667" />
+        <entry key="..\:/git/WifiConnection/WifiConnection.git/app/src/main/res/drawable/pm_box.xml" value="0.23148148148148148" />
         <entry key="..\:/git/WifiConnection/WifiConnection.git/app/src/main/res/layout/activity_main.xml" value="0.24739583333333334" />
       </map>
     </option>
